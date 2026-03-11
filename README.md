@@ -1,4 +1,4 @@
-# snakemake-profiles
+# snakemake-cluster-profiles
 
 This repository is a collection of institution- and cluster-specific profiles
 in order to provide sensible default parameters for getting your pipeline 

@@ -1,0 +1,25 @@
+executor: htcondor
+default-resources:
+  job_wrapper: "condor-jobscript.sh"
+  classad_ContainerOS: "Rocky9"
+  classad_CephFS_IO: "high"
+  classad_MaxRuntimeHours: 4
+  threads: 1
+  request_disk: "10GB"
+  request_memory: "8GB"
+  preserve_relative_paths: true
+shared-fs-usage: none
+htcondor-jobdir: logs
+htcondor-shared-fs-prefixes: "/cephfs,/cvmfs"
+max-jobs-per-second: 128
+max-status-checks-per-second: 5
+local-cores: 4
+jobs: 256
+latency-wait: 5
+verbose: False
+keep-going: True
+printshellcmds: True
+keep-incomplete: True
+rerun-incomplete: True
+rerun-triggers: { mtime: '', params: '', code: '' }
+retries: 0 # restart fallible rules this many times. Sometimes jobs fail because the file system has a small hiccup at the wrong time.

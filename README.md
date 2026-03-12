@@ -22,7 +22,7 @@ For further information regarding profiles, please check the [relevant documenta
 
 Before contributing a profile, please check with the system administrator of 
 your institution's compute system as they may want to obscure certain
-parameters for privacy-related reasons. You can provide the code 
+parameters for privacy-related reasons. 
 
 A profile should be a directory with at least two files: a `config.yaml` which 
 specifies the executor, default resources, cores, jobs, and additional 

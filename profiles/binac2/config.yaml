@@ -1,0 +1,77 @@
+# ---------------------------------------------------------------------------
+# Executor
+# ---------------------------------------------------------------------------
+executor: slurm
+
+# ---------------------------------------------------------------------------
+# Job control
+# ---------------------------------------------------------------------------
+# Maximum number of simultaneously running jobs.
+jobs: 500
+
+# Maximum number of jobs to submit at once (Slurm queues them, but submitting
+# thousands at once is wasteful and slows down the scheduler).
+max-jobs-per-second: 5
+max-status-checks-per-second: 0.5
+
+# ---------------------------------------------------------------------------
+# Fault tolerance
+# ---------------------------------------------------------------------------
+# Retry each failed job one time.
+retries: 1
+
+# Wait up to 120 s for output files to appear on the shared filesystem after
+# a job finishes (takes possible metadata latency into account).
+latency-wait: 120
+
+# Keep going with independent jobs even if some jobs fail.
+keep-going: True
+
+# ---------------------------------------------------------------------------
+# Default Slurm resource settings
+# These are overridden by per-rule `resources:` blocks in the workflow.
+# ---------------------------------------------------------------------------
+default-resources:
+  # Partition: use the default (compute) partition unless overridden.
+  slurm_partition: "compute"
+
+  # runtime
+  # Usually not needed if there the cluster's Slurm defines a default runtime for jobs.
+  # This value is first parsed Snakemake itself, then converted to a Slurm-friendly
+  # string by the snakemake-executor-plugin.
+  # This means you have to use a string that is parsable by Snakemake (e.g. the usual 2:00:00 = 2h)
+  # does not work
+  runtime: "2h"
+
+  # CPUs per task
+  cpus_per_task: 1
+
+  # Memory in MB per node.
+  # rules needing more must declare resources: mem_mb=<value>
+  mem_mb: 5000
+
+  # Temporary directory
+  # BinAC 2 provides a job-specific scratch directory
+  # via $TMPDIR that is cleaned up automatically after the job ends.
+  # Note: Snakemake defaults to $TMPDIR, nevertheless I explicitly
+  # specify it here
+  tmpdir: "$TMPDIR"
+
+# ---------------------------------------------------------------------------
+# Slurm-specific submission options (passed via --slurm-* flags or embedded
+# in the job script).
+# ---------------------------------------------------------------------------
+slurm-logdir: "logs/slurm"   # relative to the working directory of the workflow
+slurm-keep-successful-logs: False
+slurm-efficiency-report: True
+
+# ---------------------------------------------------------------------------
+# Rerun behaviour
+# ---------------------------------------------------------------------------
+rerun-incomplete: True
+
+# ---------------------------------------------------------------------------
+# Reporting / verbosity
+# ---------------------------------------------------------------------------
+printshellcmds: True
+show-failed-logs: True

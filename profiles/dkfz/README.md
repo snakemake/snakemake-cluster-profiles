@@ -2,7 +2,8 @@
 
 ## Maintainers
 
-David Laehnemann @dlaehnemann (original author) and David Koppstein @dkoppstein. The DKFZ cluster is maintained and operated by the ODCF (Omics IT and Data Management Core Facility). The organization is also on Github [here](https://github.com/DKFZ-ODCF). 
+David Laehnemann @dlaehnemann (original author) and David Koppstein @dkoppstein. The DKFZ cluster is maintained and operated by the ODCF (Omics IT and Data Management Core Facility) in Heidelberg, DE. The organization is also on Github [here](https://github.com/DKFZ-ODCF). 
+For cluster-related questions or issues, please use the [contact form](https://www.odcf.dkfz.de#open-contact:cluster). 
 
 ## Setting up snakemake 
 

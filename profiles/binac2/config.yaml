@@ -46,8 +46,8 @@ default-resources:
   # CPUs per task
   cpus_per_task: 1
 
-  # Memory in MB per node. 8 GB is a safe default; rules needing more
-  # must declare resources: mem_mb=<value>
+  # Memory in MB per node.
+  # rules needing more must declare resources: mem_mb=<value>
   mem_mb: 5000
 
   # Temporary directory

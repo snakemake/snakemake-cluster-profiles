@@ -39,5 +39,5 @@ More details relating to testing will be added here shortly.
 
 | Cluster | Location | Maintainers | Github |
 |---------|----------|------------|---------|
-| DKFZ | Heidelberg, DE | David Koppstein, David Laehnemann | @dkoppstein, @dlaehnemann |
-| BinAC 2 | Tübingen, DE | Felix Bartusch | @fbartusch |
+| DKFZ | Heidelberg, DE | David Koppstein, David Laehnemann | [@dkoppstein](https://github.com/dkoppstein/)<br>[@dlaehnemann](https://github.com/dlaehnemann) |
+| BinAC 2 | Tübingen, DE | Felix Bartusch | [@fbartusch](https://github.com/fbartusch) |

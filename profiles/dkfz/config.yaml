@@ -1,0 +1,151 @@
+### GENERAL SNAKEMAKE SETTINGS
+   
+# Tell snakemake which remote executor plugin to use, in our case the plugin
+# for the cluster system LSF, which is documented here:
+# https://snakemake.github.io/snakemake-plugin-catalog/plugins/executor/lsf.html
+executor: "lsf"
+
+# Maximum number of cluster cores / cpus to schedule jobs for.
+#
+# Reasoning for value:
+#
+# The cluster should have 14000+ cores available, according to this:
+# https://wiki.odcf.dkfz.de/pub/cluster/lsf/quickref#clusternodes_overview
+# But we never want to max out resources.
+cores: 250
+
+# Maximum number of jobs to submit to the cluster queue. (Note: A job can use more
+# than a single core / cpu).
+#
+# Reasoning for value:
+#
+# The scheduler will run no more than 200 jobs per user at any point in time:
+# https://wiki.odcf.dkfz.de/pub/knowledgebase/22
+# But it can be useful to already have jobs waiting in the queue, especially
+# when jobs are rather short-running.
+jobs: 250
+
+# The time to
+# Sometimes the file network file system is slow to respond, thus let snakemake
+# wait a little longer to check whether output files are there
+latency-wait: 60
+
+# This is the number of cores used for rules that are marked as
+# `localrule: True`, for any inexpensive / quick steps. see:
+# https://snakemake.readthedocs.io/en/latest/snakefiles/rules.html#local-rules
+#
+# Reasoning for value: Restrict the number of local cores used, so that the
+# login node you work on remains usable, but allow a bit of parallelism.
+local-cores: 12
+
+# Maximum number of jobs submitted to the cluster queue.
+#
+# Reasoning for value:
+#
+# With short-running jobs, and the time set for `seconds-between-status-checks`,
+# it makes sense to be able to fill up the entire queue in the time-frame until
+# the next status check. At the same time, we don't want to overwhelm the LSF
+# scheduler.
+max-jobs-per-second: 10
+
+# Maximum number of cores / threads / cpus to reserve for any job that
+# snakemake schedules. Snakemake will use this as a cap, even if the rule or
+# adaptive resource specifications give a higher value.
+#
+# Reasoning for value:
+#
+# Only few cluster nodes have more than 64 cores, and only some have fewer, see:
+# https://wiki.odcf.dkfz.de/pub/cluster/lsf/quickref#clusternodes_overview
+# So 64 seems to be a sweet spot where you can easily schedule any job on almost
+# any node, and at the same time still have highly  parallelized jobs. And you
+# will always have plenty of jobs that request fewer cores and can be scheduled
+# to nodes with fewer CPUs.
+max-threads: 64
+  
+# Time in seconds to wait in between sending out job status queries to the LSF
+# cluster system.
+# 
+# Reasoning for value:
+# 
+# This is meant as a good balance between not wasting time because snakemake
+# hasn't yet checked for the status of jobs that have already finished, vs.
+# sending too many queries to the cluster system. This might need further
+# adjustment, should we find it inadequate for either of the two.
+seconds-between-status-checks: 20
+  
+# Always use conda environments for software deployment. Internally snakemake
+# implicitly uses mamba for speed (at the time of writing).
+software-deployment-method: "conda"
+  
+default-resources:
+  # The default amount of memory that is reserved for a rule, if the rule (and
+  # the snakemake command) don't specify anything else.
+  #
+  # Reasoning for value:
+  #
+  # Quite a number of nodes only has about 4GB per core available, see:
+  # https://wiki.odcf.dkfz.de/pub/cluster/lsf/quickref#clusternodes_overview
+  # Thus, to fit as many (single-core) jobs as possible on a node, this should
+  # be a good default. At the same time, when rule don't specify memory usage,
+  # 4GB should rarely be exceeded.
+  mem_mb: 4000
+  
+  # The default LSF cluster queue to use, if there is no rule-specific
+  # specification below or on the command-line.
+  #
+  # Reasoning for value:
+  #
+  # With 10 hours runtime, this should cover most jobs, while still being a
+  # queue that is not overcrowded. For things that run longer (or shorter), add a rule-
+  # specific queue under `set-resources` below. For available queues, see:
+  # https://wiki.odcf.dkfz.de/pub/cluster/lsf/quickref#queues
+  lsf_queue: "long-debian"
+
+  # The ODCF cluster does not work with projects, but we have seen the
+  # lsf plugin throw an error during its attempt to nevertheless infer
+  # a project name. By setting a dummy project, we can avoid this.
+  lsf_project: "default"
+
+  # This is a workaround until there is a cluster-wide solution for correctly
+  # setting the proxies on all execution hosts / cluster nodes. It passes all
+  # the potentially necessary proxy environment variables to every snakemake
+  # job submission via the `bsub -env` command line argument.
+  # lsf_extra: ''
+  
+  
+   
+### RULE-SPECIFIC RESOURCE SETTINGS
+
+## Documentation links for resource specifications
+#
+# **Resource specifications** in snakemake can be determined dynamically, for
+# example based on `input.size_mb`. See:
+# https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#dynamic-resources
+#
+# For further details on the syntax in `config.yaml` **profile files**, see:
+# https://snakemake.readthedocs.io/en/stable/executing/cli.html#profiles
+#
+# And for details on LSF-specific resource settings, please consult:
+# https://snakemake.github.io/snakemake-plugin-catalog/plugins/executor/lsf.html#advanced-resource-specifications
+
+# These are cluster-wide thread settings for individual rules in different
+# workflows.
+# Eventually, we will want to make them generic dynamical expressions and
+# propagate them back to the rule definition in the underlying workflow.
+set-threads:
+  # dna-seq-short-read-circle-map workflow
+  #bwa_mem: '4 * max(round( input.size_mb / 10000 ), 1)'
+  
+# These are cluster-wide resource settings for individual rules in different
+# workflows. You can copy them over to your profile whenever you start using a
+# particular workflow or simply have all of them there from the start. The only
+# downside is when you use / create rules of the same name and then get
+# unexpected resource allocations.
+# Eventually, we will want to make them generic dynamical expressions and
+# propagate them back to the rule definition in the underlying workflow.
+set-resources:
+   
+  # rna-seq-kallisto-sleuth workflow
+  # get_aligned_read_bins:
+  #  mem_mb: min(max(3 * input.size_mb, 4000), 200000)
+  

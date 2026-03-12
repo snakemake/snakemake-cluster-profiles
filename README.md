@@ -34,3 +34,10 @@ maintainers of the profile and their Github handles.
 
 Please test that your profile works on your institution's compute setup. 
 More details relating to testing will be added here shortly. 
+
+## Current profiles
+
+| Cluster | Location | Maintainers | Github |
+|---------|----------|------------|---------|
+| DKFZ | Heidelberg, DE | David Koppstein, David Laehnemann | @dkoppstein, @dlaehnemann |
+| BinAC 2 | Tübingen, DE | Felix Bartusch | @fbartusch |

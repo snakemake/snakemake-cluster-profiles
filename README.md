@@ -16,6 +16,8 @@ These profiles can be further augmented using `--workflow-profiles` for
 individual workflows. These can be also searched for in `profiles/default`
 in the working directory or next to the Snakefile. 
 
+For interacting with clusters, one of the [Snakemake executor plugins](https://snakemake.github.io/snakemake-plugin-catalog/index.html) can be used. This can be specified with the `executor: ` field in config.yaml. 
+
 For further information regarding profiles, please check the [relevant documentation](https://snakemake.readthedocs.io/en/stable/executing/cli.html#profiles). 
 
 ## Contributing 

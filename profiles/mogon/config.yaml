@@ -8,7 +8,7 @@ executor: slurm
 # ---------------------------------------------------------------------------
 # Maximum number of simultaneously running jobs.
 # Note: this example sets the 'jobs' to "unlimited". However, when executing
-# truely huge workflows, we recomment setting this to a reasonable value 
+# truly huge workflows, we recommend setting this to a reasonable value 
 # (e.g. 1000) to avoid overwhelming the scheduler.
 jobs: unlimited
 
@@ -23,7 +23,7 @@ max-status-checks-per-second: 0.5
 # Retry each failed job twice.
 retries: 2
 
-# Wait up to 5 s for output files to appear on the shared filesystem after
+# Wait up to 5 s for output files to appear on the shared file system after
 # a job finishes (takes possible metadata latency into account).
 latency-wait: 5
 
@@ -41,9 +41,9 @@ default-resources:
   #   --default-resources slurm_partition=ki-smallcpu (mogonki)
 
   # runtime
-  # Usually not needed if there the cluster's Slurm defines a default runtime for jobs.
-  # This value is first parsed Snakemake itself, then converted to a Slurm-friendly
-  # string by the snakemake-executor-plugin.
+  # Usually not needed if the cluster's settings define a default runtime for jobs.
+  # This value is first parsed bySnakemake itself, then converted to a SLURM-friendly
+  # string by the snakemake-executor-slurm-plugin.
   # This means you have to use a string that is parsable by Snakemake (e.g. the usual 2:00:00 = 2h)
   # does not work
   runtime: "2h"
@@ -59,7 +59,7 @@ default-resources:
 # Storage related settings
 # These may be overwritten with specific file access patterns.
 # ---------------------------------------------------------------------------
-default-storage-provider: fs # this requires the snakemake-storgage-plugin-fs to be installed
+default-storage-provider: fs # this requires the snakemake-storage-plugin-fs to be installed
 local-storage-prefix: /dev/shm/$USER
 remote-job-local-storage-prefix: /localscratch/$SLURM_JOB_ID 
 

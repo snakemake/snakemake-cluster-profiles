@@ -20,7 +20,7 @@ max-status-checks-per-second: 0.5
 # ---------------------------------------------------------------------------
 # Fault tolerance
 # ---------------------------------------------------------------------------
-# Retry each failed job one time.
+# Retry each failed job twice.
 retries: 2
 
 # Wait up to 5 s for output files to appear on the shared filesystem after
@@ -35,10 +35,10 @@ keep-going: True
 # These are overridden by per-rule `resources:` blocks in the workflow.
 # ---------------------------------------------------------------------------
 default-resources:
-  # Partition: use the default (compute) partition unless overridden.
-  # Note: set to "ki-smallcpu" when using the cluster "mogonki" and to 
-  # "smallcpu" when using the cluster "mogonnhr".
-  slurm_partition: "smallcpu"
+  # The default partition is left unset in this shared multicluster profile and
+  # needs to be set explicitly when executing Snakemake, e.g.:
+  #   --default-resources slurm_partition=smallcpu    (mogonnhr)
+  #   --default-resources slurm_partition=ki-smallcpu (mogonki)
 
   # runtime
   # Usually not needed if there the cluster's Slurm defines a default runtime for jobs.

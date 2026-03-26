@@ -1,0 +1,83 @@
+# ---------------------------------------------------------------------------
+# Executor
+# ---------------------------------------------------------------------------
+executor: slurm
+
+# ---------------------------------------------------------------------------
+# Job control
+# ---------------------------------------------------------------------------
+# Maximum number of simultaneously running jobs.
+# Note: this example sets the 'jobs' to "unlimited". However, when executing
+# truly huge workflows, we recommend setting this to a reasonable value 
+# (e.g. 1000) to avoid overwhelming the scheduler.
+jobs: unlimited
+
+# Maximum number of jobs to submit at once (Slurm queues them, but submitting
+# thousands at once is wasteful and slows down the scheduler).
+max-jobs-per-second: 5
+max-status-checks-per-second: 0.5
+
+# ---------------------------------------------------------------------------
+# Fault tolerance
+# ---------------------------------------------------------------------------
+# Retry each failed job twice.
+retries: 2
+
+# Wait up to 5 s for output files to appear on the shared file system after
+# a job finishes (takes possible metadata latency into account).
+latency-wait: 5
+
+# Keep going with independent jobs even if some jobs fail.
+keep-going: True
+
+# ---------------------------------------------------------------------------
+# Default Slurm resource settings
+# These are overridden by per-rule `resources:` blocks in the workflow.
+# ---------------------------------------------------------------------------
+default-resources:
+  # The default partition is left unset in this shared multicluster profile and
+  # needs to be set explicitly when executing Snakemake, e.g.:
+  #   --default-resources slurm_partition=smallcpu    (mogonnhr)
+  #   --default-resources slurm_partition=ki-smallcpu (mogonki)
+
+  # runtime
+  # Usually not needed if the cluster's settings define a default runtime for jobs.
+  # This value is first parsed bySnakemake itself, then converted to a SLURM-friendly
+  # string by the snakemake-executor-slurm-plugin.
+  # This means you have to use a string that is parsable by Snakemake (e.g. the usual 2:00:00 = 2h)
+  # does not work
+  runtime: "2h"
+
+  # CPUs per task (cpus-per-task is equivalent to threads in Snakemake).
+  threads: 1
+
+  # Memory in MB per node.
+  # rules needing more must declare resources: mem_mb=<value>
+  mem_mb: 1800
+
+# ---------------------------------------------------------------------------
+# Storage related settings
+# These may be overwritten with specific file access patterns.
+# ---------------------------------------------------------------------------
+default-storage-provider: fs # this requires the snakemake-storage-plugin-fs to be installed
+local-storage-prefix: /dev/shm/$USER
+remote-job-local-storage-prefix: /localscratch/$SLURM_JOB_ID 
+
+# ---------------------------------------------------------------------------
+# Slurm-specific submission options (passed via --slurm-* flags or embedded
+# in the job script).
+# ---------------------------------------------------------------------------
+slurm-logdir: "/home/$USER/.snakemake/slurm_logs"
+slurm-keep-successful-logs: False
+slurm-efficiency-report: True
+
+# ---------------------------------------------------------------------------
+# Rerun behaviour
+# ---------------------------------------------------------------------------
+rerun-incomplete: True
+
+# ---------------------------------------------------------------------------
+# Reporting / verbosity
+# ---------------------------------------------------------------------------
+printshellcmds: False
+show-failed-logs: True

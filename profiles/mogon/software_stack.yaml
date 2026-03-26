@@ -1,0 +1,7 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - snakemake >= 9.18.1
+  - snakemake-executor-plugin-slurm >= 2.5.4
+

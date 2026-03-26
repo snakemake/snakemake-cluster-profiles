@@ -1,0 +1,93 @@
+partitions:
+  ki-smallcpu:
+    cluster: "mogonki"
+    max_runtime: "6d"
+    max_nodes: 1
+    max_threads: 127
+    max_mem_mb_per_cpu: 1930
+  ki-parallel:
+    cluster: "mogonki"
+    supports_mpi: true
+    max_threads: 128
+    max_tasks: 6400
+    max_runtime: "6d"
+  ki-longtime:
+    cluster: "mogonki"
+    supports_mpi: true
+    max_mem_mb_per_cpu: 1930
+    max_runtime: "12d"
+    max_threads: 128 
+  ki-hugemem:
+    cluster: "mogonki"
+    supports_mpi: true
+    max_mem_mb_per_cpu: 15560
+    max_runtime: "6d"
+    max_threads: 128
+  ki-largemem:
+    cluster: "mogonki"
+    supports_mpi: true
+    max_mem_mb_per_cpu: 7930
+    max_runtime: "6d"
+    max_threads: 128 
+  topml:
+    cluster: mogonki
+    max_gpu: 8
+    max_mem_mb_per_cpu: 2000
+    max_runtime: "6d"
+    max_threads: 96
+  mi250:
+    cluster: mogonki
+    max_mem_mb_per_cpu: 7930
+    max_runtime: "6d"
+    max_threads: 128
+  a100ai:
+    cluster: mogonki
+    max_gpu: 24
+    max_mem_mb_per_cpu: 15560
+    max_runtime: "6d"
+    max_threads: 128
+  a40:
+    cluster: mogonki
+    max_gpu: 56
+    max_mem_mb_per_cpu: 7930
+    max_runtime: "6d"
+    max_threads: 128
+  smallcpu:
+    cluster: mogonnhr
+    max_mem_mb_per_cpu: 1930
+    max_nodes: 1
+    max_runtime: "6d"
+    max_threads: 127
+  parallel:
+    cluster: mogonnhr
+    supports_mpi: true
+    max_runtime: "6d"
+    max_threads: 128
+  hugemem:
+    cluster: mogonnhr
+    supports_mpi: true
+    max_mem_mb_per_cpu: 15560
+    max_runtime: "6d"
+    max_threads: 128
+  largemem:
+    cluster: mogonnhr
+    supports_mpi: true
+    max_mem_mb_per_cpu: 7930
+    max_runtime: "6d"
+    max_threads: 128
+  longtime:
+    cluster: mogonnhr
+    supports_mpi: true
+    max_mem_mb_per_cpu: 1930
+    max_runtime: "12d"
+    max_threads: 128
+  a100dl:
+    cluster: mogonnhr
+    max_gpu: 40
+    max_mem_mb_per_cpu: 7930
+    max_runtime: "6d"
+    max_threads: 128
+
+
+
+

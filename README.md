@@ -44,3 +44,4 @@ More details relating to testing will be added here shortly.
 | Deutsches Krebsforschungszentrum (DKFZ) | Heidelberg, DE | David Koppstein, David Laehnemann | [@dkoppstein](https://github.com/dkoppstein/)<br>[@dlaehnemann](https://github.com/dlaehnemann) |
 | BinAC 2 | Tübingen, DE | Felix Bartusch | [@fbartusch](https://github.com/fbartusch) |
 | Bonn Analysis Facility (BAF) | Bonn, DE |  | [@lukavom](https://github.com/lukavom) |
+| Mogon | Mainz, DE |  | [@cmeesters](https://github.com/cmeesters) |

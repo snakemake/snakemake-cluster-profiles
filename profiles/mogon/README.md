@@ -12,6 +12,8 @@ For general information and support, please consult the official homepage:
 
 This profile shows two files: A general profile (`config.yaml`) and a `partitions.yaml`. When using the SLURM executor administrators can install both at a general local (e.g. under `/etc`). Users and administrators alike may set the environment variables `SNAKEMAKE_PROFILE` to the `config.yaml` and `SNAKEMAKE_SLURM_PARTITIONS` to the `partitions.yaml` file to shorten the command line. So, both files can be used globally or individually.
 
+A third file is added defining the minimal software stack, if not provided as a module file. 
+
 Due to quota limitations in the home directory, we recommend using `--sdm conda` only with `--conda-prefix /lustre/project/...`. Using `--conda-cleanup-pkgs=cache` to automatically clean up is also recommended.
 
 We recommend setting `--default-resources slurm_account=<account> slurm_cluster=mogonnhr` for users of Mogon-NHR and `--default-resources slurm_account=<account> slurm_cluster=mogonki`, respectively.
